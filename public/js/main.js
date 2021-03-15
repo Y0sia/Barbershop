@@ -22,7 +22,6 @@ $(document).ready(function() {
     {
         $('.main__events').css('display', 'none');
         if(value != 0) {
-            console.log($('#id-' + value +''));
             $('.main__events__id-' + value +'').css('display', 'flex');
         }
     }
@@ -32,5 +31,28 @@ $(document).ready(function() {
         let option_name = $(this).find("option:selected").text();
         showMessage(id_barber, option_name);
         showShedule(id_barber);
+    });
+
+    $('.main__form__events').submit(function(event) {
+        event.preventDefault();
+           $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function(result) {
+                console.log("Success");
+            },
+            error: function(result){
+                console.log("Error");
+            },
+        });
     });
 });

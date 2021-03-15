@@ -41,7 +41,7 @@
 <main class="main">
 @yield('content')
 </main>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/js/main.js"></script>
 </body>
 </html>

@@ -16,21 +16,30 @@
                 <h3>Не выбран парикмахер</h3>
             </div>
         </div>
-
         <div class="container">
              <div class="row">
-                 <form class="main__form__events" action="{{ route('shedule.make') }}" method="post">
-                     @csrf
-                     @foreach($barbers as $barber)
-                     <div class="main__events main__events__id-{{ $barber->id }} col-md-12">
-                         @foreach($shedules as $shedule)
-                             @if($barber->id === $shedule->barber_id)
-                                 <input class="status-{{ $shedule->status }}" type="submit" name="shedule_id" value="{{ $shedule->id }}">
-                             @endif
-                         @endforeach
-                     </div>
+                 @foreach($barbers as $barber)
+                     @foreach($shedules as $shedule)
+                         @if($barber->id === $shedule->barber_id)
+                             <form class="main__form__events" action="{{ route('shedule.make') }}" method="post">
+                                 @csrf
+                                 <div class="main__events main__events__id-{{ $barber->id }} col-md-12">
+                                     <input class="status-{{ $shedule->status }}" type="submit" name="input_submit" value="{{ $shedule->id }}">
+                                     <input class="status-{{ $shedule->status }}" type="hidden" name="shedule_id" value="{{ $shedule->id }}">
+                                 </div>
+                             </form>
+                         @endif
                      @endforeach
-                 </form>
+                 @endforeach
             </div>
         </div>
 @endsection
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div><br />
+    @endif
